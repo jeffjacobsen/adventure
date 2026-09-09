@@ -1,0 +1,5 @@
+# Add this site block to the existing Caddyfile; do not replace other sites.
+adventure.ms4.com {
+    encode zstd gzip
+    reverse_proxy 127.0.0.1:3500
+}

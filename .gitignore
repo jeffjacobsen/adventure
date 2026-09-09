@@ -1,0 +1,8 @@
+node_modules/
+build/
+.DS_Store
+adventure-save.json
+tmp/
+walkthrough/
+test/
+docs/

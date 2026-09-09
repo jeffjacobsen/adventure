@@ -20,9 +20,10 @@ scoring and ranks, hints and penalties, death/reincarnation, lamp depletion,
 cave closing and the repository endgame. These are baseline features, not future
 expansions. The pirate's chest is implemented and essential to progression.
 
-This document replaces the early Crowther-only plan. No game port has been
-implemented yet. The latest database has the expected twelve-section format;
-the earlier upload mismatch is resolved.
+This document replaces the early Crowther-only plan. Phase 0 extraction and
+source-derived validation are complete; see [results](docs/PHASE_0.md).
+A shared command-line and browser text preview is playable. The database has the
+expected twelve-section format; the earlier upload mismatch is resolved.
 
 ## Reviewed source and verified inventory
 
@@ -170,7 +171,7 @@ Separate historical operating-system policy from game mechanics. Default to
 always-open play and portable versioned saves with immediate resume. Preserve
 HOURS/SUSPEND vocabulary with explanations appropriate to those choices. Cave
 hours, wizard authentication, maintenance mode, demo limits and resume latency
-can remain a documented historical option, not a prerequisite for ordinary play.
+are excluded from conversion scope by user direction (September 8, 2026).
 They are distinct from the essential in-game cave-closing puzzle. Ensure removing
 START restrictions does not leave `SAVED` in the anti-bypass state that makes
 dwarves exceptionally lethal.
@@ -220,6 +221,11 @@ hidden treasures or repository solutions through maps or hotspot labels.
 
 ### Phase 0 — Establish the Woods baseline and extract the world
 
+**Status: complete using the source-traced fallback.** Run `npm run import` and
+`npm run check`. See [Phase 0 results](docs/PHASE_0.md), the
+[schema](docs/SCHEMA.md), [compatibility decisions](docs/COMPATIBILITY.md), and
+[reference investigation](docs/REFERENCE.md). Runtime parity remains unverified.
+
 Create a twelve-section importer and schema, preserving text and source order.
 Extract a directed travel graph, an object/state catalog, scoring inputs and a
 puzzle dependency list. Validate references, forced transitions, conditional
@@ -239,6 +245,31 @@ score calculation and endgame transitions. Resolve the `SPICES` initialization.
 
 ### Phase 1a — Opening text release
 
+**Status: opening preview delivered in CLI and local browser.**
+Run `npm run play`. The shared engine includes object follow-up questions,
+bird/cage coupling, snake resolution, fissure bridge toggling, forced movement,
+seeded travel, darkness, lamp depletion, treasure discovery, SCORE/QUIT confirmation,
+and versioned save/load. Opening instructions apply the original five-point
+penalty and 1,000-turn lamp option. Reincarnation restores the player and drops
+equipment using the source rules; the third death ends play. Final scores and
+ranks distinguish quitting from death. Regression routes cover treasure delivery,
+equipment recovery, repeated deaths and saves at pending questions.
+Passive score inspection is separate from the turn-consuming SCORE command.
+The parser now supports object-first follow-ups, SAY and its aliases/magic
+transport, FIND/INVENTORY object queries, and ordered vocabulary precedence.
+Parser questions survive save/load; old checkpoint formats remain readable.
+Run `npm run browser` for the local browser interface: transcript, command history,
+passive inventory, restart and compatible checkpoint download/upload. Its HTTP
+adapter is tested against direct engine play through the opening puzzles and
+saved questions. The user verified browser layout, initial-location play,
+inventory display and save/load on September 8, 2026. Automated checks cover the
+opening puzzle chain, treasure delivery, reincarnation and both browser restart
+paths. BACK now tracks failed attempts and forced passages, and blocked travel
+checks darkness. This meets the opening-preview gate; complete historical
+parser/timing parity remains a Phase 1b validation task. No reference runtime
+comparison or automated visual-browser testing is claimed.
+See [preview scope](docs/OPENING_PREVIEW.md).
+
 Implement command parsing, ordinary/conditional travel, objects, lamp/darkness,
 grate, bird/cage/snake and rod/bridge interactions. Deliver the road → building →
 grate → first cave chambers route, an
@@ -255,6 +286,38 @@ Introduce the complete state schema early so later mechanics fit existing saves.
 
 ### Phase 1b — Complete 350-point text release
 
+**Status: complete using source-traced validation.** See [Phase 1 results](docs/PHASE_1.md). All
+140 locations are supported, including both mazes, Witt's End and the
+reservoir. The plant/door, Plover, vase/pillow, clam/pearl, eggs, dragon/rug and
+troll/bear/chain puzzle groups are implemented. Y2's PLUGH clue and the paid
+Plover hint are active. Coins buy batteries; replacement extends lamp life, and
+lamp exhaustion can end above-ground play.
+
+Dwarves now activate with the axe encounter, wander, pursue, block retreat and
+attack. Axe combat and reincarnation are integrated. The pirate steals eligible
+treasures, leaves the chest and clue, and supports the last-unseen-chest sighting.
+Save format 7 preserves all six actors, dwarf kills and knife state; older saves
+migrate. A fresh seeded route recovers stolen silver and the chest, delivers both,
+and checks save/load before every command. Isolated puzzle tests disable actors;
+actor-specific and integrated route tests use the production behavior.
+
+Closing clocks, panic/escape restrictions, repository setup and all BLAST bonuses
+are implemented. The original object-pile behavior, oyster hint, dwarf/mirror
+hazards and closing-time death are covered. Save format 8 preserves clocks,
+closing/closed/panic flags, bonus, negative object properties and the oyster question.
+Versions 1–7 migrate with fresh closing clocks (elapsed closing time cannot be
+reconstructed). A fresh seed-12345 route reaches 350 points in 334 turns, with
+checkpoint comparisons for all 339 actual inputs and browser endgame checks.
+
+All contextual hints, BRIEF, description abbreviation, remaining action defaults,
+parser follow-ups and source-specific responses are implemented. Save format 9
+preserves hint continuations and description state. The timing review added
+unknown-word probability draws and fixed the lamp-expiry darkness boundary.
+The full route remains 350 points in 334 turns, now checking 339 inputs because
+three additional Witt's End hint offers are explicitly declined. Historical
+hours/suspend restrictions are excluded as agreed. Exact parity with a running
+historical executable remains unverified under the Phase 0 fallback.
+
 Finish all 140 locations, 31 action handlers, three special travel handlers,
 expanded puzzles, dwarf/pirate behavior, capacity/liquid rules, scoring/ranks,
 paid hints, lamp depletion/batteries, reincarnation and every endgame outcome.
@@ -265,6 +328,21 @@ winning path. Default platform conveniences are documented separately.
 **Gate:** a reproducible maximum-score playthrough from a fresh game; independent
 lower-score/failure routes; deterministic save/load through theft, hints, death,
 cave closing and the repository. A debug jump to the ending alone is insufficient.
+
+The user-tested numbered route in `walkthrough/README.md` now passes an automated
+fresh-game replay: all 15 treasures deposited intact, magazine at Witt's End,
+276 points before closing, no deaths, and dwarf/pirate encounters active. Run
+`npm run walkthrough:replay`. Seed 12345 takes 262 turns, with four dwarves killed
+and 71 lamp turns remaining. All 264 actual inputs, including explicit combat
+and stolen-treasure recovery commands, pass checkpoint comparisons. The report
+and portable final save are written under `build/`. Step 237's open-ended closing
+advice is extended by a reviewed continuation when `--ending` is requested. This meets the pre-closing collection milestone; the
+collection checkpoint also feeds the now-verified maximum-score ending.
+
+The new README replaces the earlier five-phase files, which are no longer in
+this checkout. `npm run walkthrough` now audits the numbered route. See
+[walkthrough validation](docs/WALKTHROUGH.md) for the replay and historical
+port-specific findings. Use the new route for closing/endgame regression work.
 **Feedback:** difficulty, clue fairness, resource pressure, score expectations and
 endgame comprehension. Do not invent a new ending or scoring system.
 
@@ -396,6 +474,7 @@ bundle containing build/data version, saved state, command/event log and random
 state, plus what the player expected and found confusing. Keep full state and
 solution-bearing diagnostics out of ordinary player UI.
 
-The next implementation work is Phase 0 followed by Phase 1a and 1b. The corrected
-database is now available; there is no remaining upload prerequisite. Detailed
-art production should follow the catalog and the opening graybox evaluation.
+The next implementation work is Phase 2 scene cataloging and authoring tools,
+followed by the opening graybox. Phase 1 is complete under source-traced validation.
+The full 350-point route is now playable; detailed art production should follow
+the catalog and graybox evaluation.

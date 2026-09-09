@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <title>Colossal Cave · Adventure</title>
+  <link rel="stylesheet" href="/style.css">
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <header>
+    <div><p class="eyebrow">CROWTHER–WOODS · 350 POINTS</p><h1>Colossal Cave</h1></div>
+    <span class="badge">Text preview</span>
+  </header>
+  <main>
+    <section class="play" aria-label="Adventure game">
+      <div class="story-heading"><h2>Your adventure</h2><span id="turns">0 turns</span></div>
+      <div id="transcript" role="log" aria-label="Game transcript" aria-live="polite" aria-relevant="additions" tabindex="0"></div>
+      <form id="command-form">
+        <label for="command">What will you do?</label>
+        <div class="command-line"><span aria-hidden="true">&gt;</span><input id="command" name="command" autocomplete="off" autocapitalize="none" spellcheck="false" maxlength="500" placeholder="Type a command…" aria-describedby="command-help" disabled><button id="submit" disabled>Enter</button></div>
+        <p id="command-help">Try LOOK or INVENTORY. ↑ and ↓ recall commands.</p>
+      </form>
+    </section>
+    <aside aria-label="Game controls">
+      <section><h2>In your hands</h2><ul id="inventory"><li>Empty-handed</li></ul><p class="muted">Viewing this list does not spend a turn.</p></section>
+      <section><h2>Keep your place</h2><div class="controls"><button id="save" disabled>Download save</button><button id="load" disabled>Load save</button><button id="restart" disabled>Start again</button><button id="help" disabled>Command help</button></div><input id="file" type="file" accept=".json,application/json" hidden><p class="muted">Saves work in both browser and command-line play. Download one before closing or reloading this page.</p></section>
+      <section class="note"><h2>A cave in progress</h2><p>Explore the cave, recover its treasures, and solve the final puzzle. The complete 350-point text adventure is playable, including the original hints and endings.</p><p>Graphics will come later. Your words lead the way for now.</p></section>
+      <p id="status" role="status">Opening the cave…</p>
+    </aside>
+  </main>
+  <footer>Based on the original 1977 adventure · Text preview</footer>
+</body>
+</html>

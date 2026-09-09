@@ -1,0 +1,12 @@
+{
+  "description": "Fresh seeded actor-enabled play: first dwarf/axe, pirate theft, all-alike maze, chest and stolen silver recovery to building. Source-derived port regression, not an original-runtime transcript.",
+  "seed": 1,
+  "commands": [
+    "NO", "ENTER", "TAKE LAMP", "LIGHT", "XYZZY", "EAST", "TAKE CAGE",
+    "WEST", "WEST", "WEST", "TAKE BIRD", "WEST", "DOWN", "DOWN", "DROP BIRD",
+    "NORTH", "TAKE SILVER", "SOUTH", "TAKE AXE", "WEST", "WEST", "WEST", "EAST",
+    "SOUTH", "EAST", "SOUTH", "SOUTH", "SOUTH", "NORTH", "EAST", "EAST", "NW",
+    "TAKE CHEST", "TAKE SILVER", "SE", "NORTH", "DOWN", "EAST", "EAST", "XYZZY",
+    "DROP CHEST", "DROP SILVER"
+  ]
+}

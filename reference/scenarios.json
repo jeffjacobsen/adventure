@@ -1,0 +1,78 @@
+{
+  "formatVersion": 1,
+  "evidence": "source-traced specifications, not captured runtime transcripts",
+  "scenarios": [
+    {
+      "id": "opening-route",
+      "sourceAnchors": ["9010", "9040", "9070", "303009"],
+      "commands": ["NO", "ENTER", "TAKE KEYS", "TAKE LAMP", "OUT", "DEPRESSION", "DOWN", "UNLOCK GRATE", "DOWN", "LIGHT LAMP", "WEST", "TAKE CAGE", "WEST"],
+      "expected": [
+        "Start at 1; answering NO to instructions keeps hint 3 false and lamp limit 330.",
+        "ENTER reaches 3; keys 1 and lamp 2 become carried; OUT returns to 1; DEPRESSION reaches 8.",
+        "DOWN while grate property is 0 emits message 93 and stays at 8.",
+        "UNLOCK GRATE with keys sets property 3 to 1; DOWN reaches 9.",
+        "LIGHT LAMP sets property 2 to 1; WEST reaches 10, TAKE CAGE carries 4, WEST reaches 11."
+      ],
+      "automatedCoverage": "data-table travel selection and initial placement; command execution deferred to Phase 1a"
+    },
+    {
+      "id": "bird-and-snake",
+      "sourceAnchors": ["9015", "9020", "PROP(BIRD)=1", "PROP(SNAKE)=1"],
+      "expected": [
+        "At 13, carrying rod 5 prevents capturing bird 8 (message 26).",
+        "Without rod, capture requires carried cage 4; sets bird property 1 and couples cage/bird carrying.",
+        "Dropping bird at 19 with snake present destroys snake, sets snake property 1 and uncages bird.",
+        "WAVE ROD at fissure toggles its property unless cave closing."
+      ],
+      "automatedCoverage": "source anchors and catalog; action execution deferred to Phase 1a"
+    },
+    {
+      "id": "special-travel",
+      "sourceAnchors": ["30100", "30200", "30310", "PROP(SPICES)"],
+      "expected": [
+        "301: passage 99↔100 permits no carried objects or emerald alone; other loads stay with message 117.",
+        "302: drop emerald at current location, then resume next different destination via label 12.",
+        "303: troll property 1 restores troll and blocks crossing; otherwise cross between 117 and 122.",
+        "Crossing with bear collapses bridge and kills player/bear; if spices property is negative increment TALLY2 using corrected SPICES=63."
+      ],
+      "automatedCoverage": "decoded handler references, fallback and corrected mnemonic; handler effects deferred to Phase 1b"
+    },
+    {
+      "id": "score-boundaries",
+      "sourceAnchors": ["20000", "20020", "20030", "8241"],
+      "expected": [
+        "Fresh quit preview is 32; accepting instructions changes it to 27.",
+        "Each discovered treasure earns 2; remaining points require place 3 and property 0.",
+        "Full treasure deposit + survival + deeper cave + closing + best ending + magazine at 108 + allowance yields 350.",
+        "Quit-preview context with otherwise maximum state excludes 4 finishing points: 346.",
+        "Repository bonuses 0/135/134/133 award 10/25/30/45; hints subtract section-11 costs once each."
+      ],
+      "automatedCoverage": "pure scoring calculation and independent fixtures"
+    },
+    {
+      "id": "closing-warning",
+      "sourceAnchors": ["CLOCK1=30", "CLOCK2=50", "IF(TALLY.EQ.0.AND.LOC.GE.15.AND.LOC.NE.33)", "10000", "CLOCK2=15"],
+      "expected": [
+        "When TALLY=0, tick CLOCK1 only at locations >=15 except 33; reaching zero begins closing.",
+        "Grate and fissure props become 0; six NPC slots clear; troll representations change; living bear is removed.",
+        "Chain and axe become property/fixed 0; CLOCK1=-1; CLOSNG=true; message 129.",
+        "Attempting surface escape or grate unlocking sets CLOCK2=15 on first panic and blocks escape.",
+        "No reincarnation during closing; CLOCK2 reaching zero initializes repository."
+      ],
+      "automatedCoverage": "source anchors and expected-state specification; turn loop deferred to Phase 1b"
+    },
+    {
+      "id": "repository-setup-and-ending",
+      "sourceAnchors": ["11000", "FIXED(MIRROR)=116", "CALL DSTROY(IDONDX)", "9230", "19000"],
+      "expected": [
+        "Player/current/previous/new location become 115; CLOSED=true; message 132.",
+        "At 115: bottle prop -2; plant, oyster, lamp, original rod and dwarf props -1; mirror prop -1 with fixed endpoint 116.",
+        "At 116: grate prop 0; snake and bird props -2; cage, second rod and pillow props -1.",
+        "Remaining carried objects are destroyed; negative props hide individual items until revealed.",
+        "BLAST is inactive until CLOSED and second-rod prop >=0. Then default bonus133; at115 bonus134; HERE(second rod) overrides to135.",
+        "With second rod left at115, player at116 and rod revealed, BLAST selects133 (45 points). Disturbing dwarves ends with message136."
+      ],
+      "automatedCoverage": "repository PUT extraction and scoring outcomes; complete endgame execution deferred to Phase 1b"
+    }
+  ]
+}

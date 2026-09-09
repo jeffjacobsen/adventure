@@ -1,0 +1,37 @@
+{
+  "version": 1,
+  "files": [
+    {
+      "path": "original/adventure.f",
+      "bytes": 81856,
+      "sha256": "d551479e685613b2a62e0a11f779828cb67868af54f77a01728b1ca94a82a4a0",
+      "archiveMd5WithFinalNewline": "ce54256f8e732b4a5e570bc64dd8536f"
+    },
+    {
+      "path": "original/adventure.dat",
+      "bytes": 55454,
+      "sha256": "7f5015eff63d0db7c2efa280f57d1e28a3698639663faeeae651f47654b46dc0",
+      "archiveMd5WithFinalNewline": "9f12da0c3e129b7fe5a1d91bbfebe02f"
+    }
+  ],
+  "expected": {
+    "locations": 140,
+    "shortDescriptions": 65,
+    "travelRows": 493,
+    "motionEntries": 741,
+    "vocabularyEntries": 295,
+    "vocabularyCodes": 176,
+    "objectDescriptions": 53,
+    "placements": 55,
+    "treasures": 15,
+    "generalMessages": 198,
+    "actions": 31,
+    "ranks": 9,
+    "hints": 8,
+    "administrationMessages": 32,
+    "maximumScore": 350
+  },
+  "forcedLocations": [16, 20, 21, 22, 26, 31, 32, 40, 59, 79, 89, 90],
+  "acceptedWarnings": ["legacy-motion-109"],
+  "runtimeParity": "unverified"
+}

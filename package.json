@@ -1,0 +1,26 @@
+{
+  "name": "adventure-350",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=24.12.0"
+  },
+  "scripts": {
+    "import": "node scripts/import-world.ts",
+    "validate": "node scripts/import-world.ts --check",
+    "walkthrough": "node scripts/check-walkthrough.ts",
+    "play": "node scripts/play.ts",
+    "browser": "node scripts/browser.ts",
+    "partial-map": "node scripts/partial-map.ts",
+    "test": "node --test test/*.test.ts",
+    "typecheck": "tsc --noEmit",
+    "check": "npm run typecheck && npm test && npm run validate",
+    "cave-map": "node scripts/cave-map.ts",
+    "walkthrough:replay": "node scripts/replay-walkthrough.ts"
+  },
+  "devDependencies": {
+    "@types/node": "26.5.0",
+    "typescript": "7.0.2"
+  }
+}

@@ -1,0 +1,23 @@
+[Unit]
+Description=Colossal Cave Adventure
+After=network.target
+
+[Service]
+Type=simple
+User=adventuresrv
+Group=adventuresrv
+WorkingDirectory=/srv/adventure/current
+ExecStart=/opt/adventure/node/bin/node scripts/browser.ts
+Environment=NODE_ENV=production
+Environment=PORT=3500
+Environment=PUBLIC_ORIGIN=https://adventure.ms4.com
+Restart=on-failure
+RestartSec=3
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+UMask=0027
+
+[Install]
+WantedBy=multi-user.target
