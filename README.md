@@ -4,6 +4,8 @@ A gradual recreation of the classic Crowther–Woods **350-point Colossal Cave
 Adventure**, starting with a playable text game and adding 3D environments while
 keeping text play available.
 
+**Play online: [adventure.ms4.com](https://adventure.ms4.com).**
+
 Phases 0 and 1 are complete: the full text game is playable. The shared
 TypeScript engine now supports all 140 locations, with the major
 treasure puzzles, dwarves, pirate theft/chest recovery, lamp batteries, scoring,
@@ -13,6 +15,10 @@ walkthrough reaches all 350 points, with save/load checks through the final blas
 the same game rules. Historical access hours and delayed resume are omitted.
 
 Requires Node.js 24.12 or newer. From the repository root:
+
+`docs/`, `test/`, and `walkthrough/` are temporarily excluded from this repository.
+Some documentation links and the test/walkthrough commands below require those
+local directories; browser and CLI play work from a fresh clone.
 
 ```sh
 npm ci
