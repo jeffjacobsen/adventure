@@ -301,7 +301,12 @@ export class AdventureEngine {
     return [{ kind: 'game-over', text: `You scored ${score.score} out of a possible ${score.maximum}, using ${this.state.turns} turns.\n${score.rank ? text(score.rank.text) : ''}\nGAME OVER. Type RESTART to play again.` }];
   }
 
-  private message(id: number): GameEvent { return { kind: 'text', text: text(this.world.messages.find(m => m.id === id)) }; }
+  private message(id: number): GameEvent {
+    let message = text(this.world.messages.find(m => m.id === id));
+    // Omit the obsolete contact invitation from modern instructions; retain the source and credits.
+    if (id === 1) message = message.split('\n').filter(line => line.trim() !== 'CONTACT DON IF YOU HAVE ANY QUESTIONS, COMMENTS, ETC.').join('\n');
+    return { kind: 'text', text: message };
+  }
   private dark() {
     const room = this.world.locations.find(l => l.id === this.state.location)!;
     return !(room.conditionBits & 1) && !(here(this.state, 2) && this.state.objects[2].prop === 1);
